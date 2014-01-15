@@ -23,6 +23,13 @@ Install
 -----------
 
     npm install
+    
+Config server
+----------------
+
+You should change ``io.connect()`` in ``public/js/index.js``.
+
+Change your server ip like this ``var socket = io.connect("http://server_ip")``.
 
 Start
 ---------
@@ -33,10 +40,3 @@ And then?
 ------------
 
 Open your browser, and type ``http://localhost:3000`` , LET'S CHAT ONLINE
-
-Config server
-----------------
-
-You should change ``io.connect()`` in ``public/js/index.js``.
-
-Change your server ip like this ``var socket = io.connect("http://server_ip")``.
