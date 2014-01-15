@@ -4,7 +4,8 @@
   height: 350px;
   margin-left: 35%;
   margin-top: 10%;
-  border:solid 1px black;
+  border:solid 3px #aaa;
+  border-radius: 8px;
 }
 
 .login_info {
@@ -32,6 +33,10 @@
 }  
 ::-webkit-scrollbar-thumb:hover {  
     background-color: #aaa;  
+}
+
+#wel_name {
+  margin: 10px 10px 10px 20px;
 }
 
 .Simon_is_good {
@@ -65,7 +70,7 @@
 }
 
 .user_li {
-  margin:10px 5px 10px 5px;
+  margin:10px 5px 10px 10px;
 }
 
 .control_block {
@@ -75,6 +80,10 @@
 .msg_area {
   width: 280px;
   border-radius: 5px;
+}
+
+.msg {
+  margin:10px 10px 10px 10px;
 }
 
 .login_msg {

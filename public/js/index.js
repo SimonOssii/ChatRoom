@@ -9,7 +9,7 @@ $(document).ready(function(){
   // append User and User login msg
   socket.on("Users", function(data){
     var scroll_pos = $(".chat_area").prop('scrollHeight');
-    $(".chat_area").append("<p class='login_msg'>"+data.name + data.status +"</p>");
+    $(".chat_area").append("<div class='msg'><p class='login_msg'>"+data.name + data.status +"</p></div>");
     $(".chat_area").animate({ scrollTop: scroll_pos }, "fast");
     $(".users_list").empty();
     for(var idx in data.ar){
@@ -47,11 +47,11 @@ $(document).ready(function(){
     
     // append <a> tag
     if(msg.slice(0,7).match("http://") || msg.slice(0,8).match("https://")){
-      msg = "<a href="+msg+">"+msg+"</a>";
+      msg = "<a href='"+msg+"'>"+msg+"</a>";
     }
     var name = String(data.name);
     var scroll_pos = $(".chat_area").prop('scrollHeight');
-    $(".chat_area").append("<div><div class='inline'>"+name+":  </div><div class='inline'>"+msg+"</div></div>");
+    $(".chat_area").append("<div class='msg'><div class='inline'>"+name+":  </div><div class='inline'>"+msg+"</div></div>");
     $(".chat_area").animate({ scrollTop: scroll_pos }, "fast");
   })
 })

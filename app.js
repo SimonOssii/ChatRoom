@@ -17,8 +17,6 @@ app.configure(function(){
   app.set('view cache', false);
   app.set('views', __dirname + '/views');
   app.use('/public', express.static(__dirname + "/public"));
-  app.use(express.cookieParser());
-  app.use(express.session({secret: '0000'}));
   app.use(express.bodyParser());
 })
 
