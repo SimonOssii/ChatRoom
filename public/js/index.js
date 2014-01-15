@@ -1,9 +1,9 @@
 $(document).ready(function(){
   var socket = io.connect('http://localhost:3000');
-  var name = $("#wel_name").attr("data-name");
+  var Myname = $("#wel_name").attr("data-name");
   
-  if(name){
-    socket.emit('client_user', {"name":name});
+  if(Myname){
+    socket.emit('client_user', {"name":Myname});
   }
   
   // append User and User login msg
@@ -22,7 +22,7 @@ $(document).ready(function(){
   $(".send").bind('click', function(){
     var msg = $(".msg_area").val();
     if(msg != ""){
-      socket.emit('client_msg', {"msg":msg, "name":name});
+      socket.emit('client_msg', {"msg":msg, "name":Myname});
       $(".msg_area").val("");
     }
   });
@@ -31,7 +31,7 @@ $(document).ready(function(){
   $(".msg_area").keydown(function(){
     var msg = $(".msg_area").val();
     if(event.keyCode == 13 && msg != ""){
-      socket.emit('client_msg', {"msg":msg, "name":name});
+      socket.emit('client_msg', {"msg":msg, "name":Myname});
       $(".msg_area").val("");
     }
   });
@@ -53,5 +53,28 @@ $(document).ready(function(){
     var scroll_pos = $(".chat_area").prop('scrollHeight');
     $(".chat_area").append("<div class='msg'><div class='inline'>"+name+":  </div><div class='inline'>"+msg+"</div></div>");
     $(".chat_area").animate({ scrollTop: scroll_pos }, "fast");
+    
+    // desktop notifications
+    if(name != Myname){
+      notifyMe(msg, name)
+    }
   })
 })
+
+function notifyMe(msg, name) {
+  if (Notification.permission === "granted") {
+    var n = new Notification(name, {body: msg});
+    n.onshow = function(){
+      setTimeout(function(){n.close()}, 800); 
+    }
+  }
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+
+      if(!('permission' in Notification)) {
+        Notification.permission = permission;
+      }
+
+    });
+  }
+}
