@@ -1,5 +1,5 @@
 $(document).ready(function(){
-  var socket = io.connect('http://10.7.10.100:3000');
+  var socket = io.connect('http://localhost:3000');
   var name = $("#wel_name").attr("data-name");
   
   if(name){
@@ -44,6 +44,11 @@ $(document).ready(function(){
   // append msg to chat area 
   socket.on('server_msg', function(data){
     var msg = String(data.msg);
+    
+    // append <a> tag
+    if(msg.slice(0,7).match("http://") || msg.slice(0,8).match("https://")){
+      msg = "<a href="+msg+">"+msg+"</a>";
+    }
     var name = String(data.name);
     var scroll_pos = $(".chat_area").prop('scrollHeight');
     $(".chat_area").append("<div><div class='inline'>"+name+":  </div><div class='inline'>"+msg+"</div></div>");

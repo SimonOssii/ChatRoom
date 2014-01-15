@@ -3,8 +3,9 @@ var express = require('express'),
     swig = require('swig'),
     http = require('http'),
     server = require("http").createServer(app), 
-    ar = [];
-global.io = require("socket.io").listen(server);
+    io = require("socket.io").listen(server);
+   
+global.user_list = []; 
 
 var index = require("./route/index");
 
@@ -34,20 +35,20 @@ io.sockets.on('connection', function(socket){
   
   socket.on('client_user', function(user){
     socket.user = user.name;
-    ar.push({"name": user.name, "id":socket.id});
-    io.sockets.emit("Users", {"ar":ar, "name": user.name ,"status": "已登入"});
+    user_list.push({"name": user.name, "id":socket.id});
+    io.sockets.emit("Users", {"ar":user_list, "name": user.name ,"status": "已登入"});
   });
   
   socket.on('disconnect', function () {
     if(socket.user && socket.id){
-      for(var idx in ar){
-        var user = ar[idx];
+      for(var idx in user_list){
+        var user = user_list[idx];
         if(socket.user == user.name && socket.id == user.id){
-          var position = ar.indexOf(user);
+          var position = user_list.indexOf(user);
           if ( ~position ){
-            ar.splice(position, 1);
+            user_list.splice(position, 1);
           }
-          io.sockets.emit("Users", {"ar":ar, "name":user.name, "status": "已登出"});
+          io.sockets.emit("Users", {"ar":user_list, "name":user.name, "status": "已登出"});
           break;
         }
       }
