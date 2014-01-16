@@ -1,10 +1,16 @@
 {% extends 'base.html' %}
 {% block chat %}
-<div><h1 id="wel_name" data-name="{{ name }}">Hello, {{ name }}</h1></div>
+<div>
+  <h1 id="wel_name" data-name="{{ name }}">Hello, {{ name }}</h1>
+  <h3 id="desc">Double click on name in right block, you can chat with only who you choose.</h3>
+</div>
 <div class="Simon_is_good">
   <div class="chat">
     <div class="chat_area"></div>
     <div class="control_block">
+      <div>
+        <p class="toWho" data-toWho=""></p>
+      </div>
       <input class="msg_area" type="text" />
       <button class="send btn btn-primary">send</button>
       <button class="clear btn btn-danger">clear</button>

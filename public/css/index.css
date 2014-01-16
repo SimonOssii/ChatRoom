@@ -39,6 +39,10 @@
   margin: 10px 10px 10px 20px;
 }
 
+#desc {
+  margin: 10px 10px 10px 20px;
+}
+
 .Simon_is_good {
   width:100%
 }
@@ -84,6 +88,11 @@
 
 .msg {
   margin:10px 10px 10px 10px;
+}
+
+.forYou {
+  margin:10px 10px 10px 10px;
+  color: blue;
 }
 
 .login_msg {

@@ -28,13 +28,22 @@ app.all("/chat", index.index);
 
 io.sockets.on('connection', function(socket){
   socket.on('client_msg', function(data){
-    io.sockets.emit("server_msg", {"msg":data.msg, "name":data.name});
+    io.sockets.emit("server_msg", {
+      "msg":data.msg, 
+      "name":data.name, 
+      "toWho":data.toWho, 
+      "fromWho":data.toWho != "" ? data.name : ""
+    });
   });
   
   socket.on('client_user', function(user){
     socket.user = user.name;
     user_list.push({"name": user.name, "id":socket.id});
-    io.sockets.emit("Users", {"ar":user_list, "name": user.name ,"status": "已登入"});
+    io.sockets.emit("Users", {
+      "ar":user_list, 
+      "name": user.name ,
+      "status": "已登入"
+    });
   });
   
   socket.on('disconnect', function () {
@@ -46,7 +55,11 @@ io.sockets.on('connection', function(socket){
           if ( ~position ){
             user_list.splice(position, 1);
           }
-          io.sockets.emit("Users", {"ar":user_list, "name":user.name, "status": "已登出"});
+          io.sockets.emit("Users", {
+            "ar":user_list, 
+            "name":user.name, 
+            "status": "已登出"
+          });
           break;
         }
       }
