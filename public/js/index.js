@@ -1,4 +1,6 @@
 $(document).ready(function(){
+  var docTitle = "Welcome To Chat";
+  document.title = docTitle;
   //~ var socket = io.connect('http://localhost:3000');
   var socket = io.connect('http://10.7.10.100:3000');
   var Myname = $("#wel_name").attr("data-name");
@@ -16,25 +18,33 @@ $(document).ready(function(){
     $(".users_list").empty();
     for(var idx in data.ar){
       var user = data.ar[parseInt(idx)];
-      $(".users_list").append("<li id='"+user.id+"' class='user_li' data-name='"
-        +user.name+"'>"+ user.name+"</li>");
+      $(".users_list").append("<tr id='"+user.id+"' class='user_li' data-name='"+user.name+"'><td>"
+        + user.name+"</td></tr>"
+      );
     }
-    $(".user_li").dblclick(function(){
-      $(".toWho").empty().attr("data-toWho", $(this).attr("data-name"));
-      $(".toWho").append("TO: " + $(this).attr("data-name") +", <--- double click to cancel");
+    $(".user_li").click(function(){
+      $(".private_area").empty();
+      $(".private_area").append("<p class='toWho inline' data-toWho='"
+        + $(this).attr("data-name") + "'>" +$(this).attr("data-name")+ "</p>");
+      $(".private_area").append("<button class='clear_toWho inline btn btn-danger btn-xs'>"
+        + "X</button>"
+      );
+      $(".clear_toWho").bind("click", function(){
+        $(".private_area").empty();
+      })
     })
   })
   
   // Click event
   $(".send").bind('click', function(){
     var msg = $(".msg_area").val();
-    var toWho = $(".toWho").attr("data-toWho") != "" ? $(".toWho").attr("data-toWho") : "";
+    var toWho = $(".toWho").attr("data-toWho") ? $(".toWho").attr("data-toWho") : "";
     if(msg != ""){
       socket.emit('client_msg', {
         "msg":msg, 
         "name":Myname, 
-        "toWho":toWho}
-      );
+        "toWho":toWho
+      });
       $(".msg_area").val("");
     }
   });
@@ -42,13 +52,13 @@ $(document).ready(function(){
   // Enter event
   $(".msg_area").keydown(function(){
     var msg = $(".msg_area").val();
-    var toWho = $(".toWho").attr("data-toWho") != "" ? $(".toWho").attr("data-toWho") : "";
+    var toWho = $(".toWho").attr("data-toWho") ? $(".toWho").attr("data-toWho") : "";
     if(event.keyCode == 13 && msg != ""){
       socket.emit('client_msg', {
         "msg":msg, 
         "name":Myname, 
-        "toWho":toWho}
-      );
+        "toWho":toWho
+      });
       $(".msg_area").val("");
     }
   });
@@ -84,6 +94,7 @@ $(document).ready(function(){
         +name+":  </div><div class='inline'>"+msg+"</div></div>");
       $(".chat_area").animate({ scrollTop: scroll_pos }, "fast");
       if(name != Myname){
+        blinkNow = true;
         notifyMe(oriMsg, name)
       }
     }else if(toWho == ""){
@@ -92,6 +103,7 @@ $(document).ready(function(){
         +name+":  </div><div class='inline'>"+msg+"</div></div>");
       $(".chat_area").animate({ scrollTop: scroll_pos }, "fast");
       if(name != Myname){
+        blinkNow = true;
         notifyMe(oriMsg, name)
       }
     }

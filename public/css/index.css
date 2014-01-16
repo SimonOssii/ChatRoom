@@ -53,6 +53,10 @@
   float:left;
 }
 
+.private_area {
+  margin:10px 10px 10px 10px;
+}
+
 .chat_area {
   margin:10px 10px 10px 10px;
   width:400px;
