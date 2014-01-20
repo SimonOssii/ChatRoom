@@ -6,7 +6,6 @@ var express = require('express'),
     io = require("socket.io").listen(server);
    
 global.user_list = []; 
-
 var index = require("./route/index");
 
 swig.setDefaults({"cache": false});
@@ -45,6 +44,21 @@ io.sockets.on('connection', function(socket){
       "status": "已登入"
     });
   });
+  
+  socket.on('mind_img', function(data){
+    var path = "./public/imgs/";
+    io.sockets.emit("server_imgs", {
+      "name": data.name,
+      "img_url": path + data.mind,
+      "toWho":data.toWho,
+      "fromWho":data.toWho != "" ? data.name : ""
+    })
+  });
+  
+  //~ // Not finish
+  //~ socket.on('client_image', function(data){
+    //~ console.dir("SSSSSSSSSSSSSSs");
+  //~ });
   
   socket.on('disconnect', function () {
     if(socket.user && socket.id){

@@ -75,17 +75,19 @@
   border-radius: 8px;
   overflow-x:hidden;　
   overflow-y:auto;
+  -moz-user-select : none;
+  -webkit-user-select: none;
 }
 
 .user_li {
   margin:10px 5px 10px 10px;
 }
 
-.control_block {
+.control_block, .img_send {
   margin:10px 10px 10px 10px;
 }
 
-.msg_area {
+.msg_area, .img_pwd {
   width: 280px;
   border-radius: 5px;
 }
@@ -101,4 +103,16 @@
 
 .login_msg {
   color: red;
+}
+
+.mind_img {
+  width:70px; 
+  height:65px; 
+  float:left; 
+  margin:3px 3px 3px 3px;
+}
+
+.mind_img > img{
+  width:70px; 
+  height:65px; 
 }

@@ -13,15 +13,32 @@
       <button class="send btn btn-primary">send</button>
       <button class="clear btn btn-danger">clear</button>
     </div>
+    <div class="img_send">
+      <div class="img_pwd"></div>
+      <button class="btn btn-primary chooseFile">選擇檔案</button>
+      <button class="btn btn-success sendImg">送出</button>
+      <button class="btn btn-info" id="open_mind">表情圖案</button>
+    </div>
+    <form id="uploadForm" class="form-inline" method="post" enctype="multipart/form-data" action="/fileUpload">
+      <input type="file" id="file" name="imageFile" style="display:none;" />
+<!--
+      <input type="text" class="textFilePath input-xlarge" size="40"/>
+      <button type="button" class="btn btn-primary chooseFile">選擇檔案</button>
+      <button type="submit" class="btn btn-success">送出</button>
+-->
+    </form>
+    
+    <div id="your_mind" title="Your Mind">
+      {% for i in imgs %}
+      <div class="mind_img" data-mind="{{ i }}">
+        <img src="./public/imgs/{{ i }}" />
+      </div>
+      {% endfor %}
+    </div>
   </div> 
-
 
   <div class="users">
     <div class="users_area">
-<!--
-      <ul class="users_list">
-      </ul>
--->
       <table class="table table-hover">
         <thead>
           <tr>
@@ -29,9 +46,6 @@
           </tr>
         </thead>
         <tbody class="users_list">
-          <tr>
-            <td>1</td>
-          </tr>
         </tbody>
       </table>
       

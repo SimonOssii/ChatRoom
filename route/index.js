@@ -3,9 +3,12 @@ module.exports.login = function(req, res){
 }
 
 module.exports.index = function(req, res){
+  var fs = require('fs'),
+      imgs = fs.readdirSync('./public/imgs/');
+      
   if(!req.body.nickname){
     res.redirect('/')
   }
   var name = req.body.nickname;
-  res.render('index.html', {"name": name});
+  res.render('index.html', {"name": name, "imgs": imgs});
 }
