@@ -1,10 +1,13 @@
 $(document).ready(function(){
-  var docTitle = "Welcome To Chat";
-  var img_file;
+
+  var docTitle = "Welcome To Chat",
+      blinkTitle = "You have message",
+      interval = null,
+      //~ socket = io.connect('http://localhost:3000'),
+      socket = io.connect('http://10.7.10.100:3000'), // My server ip
+      Myname = $("#wel_name").attr("data-name");
+
   document.title = docTitle;
-  var socket = io.connect('http://localhost:3000');
-  //~ var socket = io.connect('http://10.7.10.100:3000'); // My server ip
-  var Myname = $("#wel_name").attr("data-name");
   
   $(".chooseFile").bind("click", function(){
     $("#file").trigger('click');
@@ -31,6 +34,14 @@ $(document).ready(function(){
   
   $("#open_mind").click(function(){
     $( "#your_mind" ).dialog( "open" );
+  });
+  
+  $(window).focus(function () {
+      if(interval){
+        clearInterval(interval);
+        $("title").text(docTitle);
+        interval = null;
+      }
   });
   
   // append User and User login msg
@@ -110,7 +121,7 @@ $(document).ready(function(){
     })
   });
   
-  // append your mind image to chat area
+  // append your mood image to chat area
   socket.on('server_imgs', function(data){
     var name = String(data.name),
         img_url = String(data.img_url),
@@ -159,6 +170,9 @@ $(document).ready(function(){
       $(".chat_area").animate({ scrollTop: scroll_pos }, "fast");
       if(name != Myname){
         notifyMe(oriMsg, name);
+        interval = setInterval(function(){
+          changeTitle(docTitle, blinkTitle)
+        }, 1000);
       }
     }else if(toWho == ""){
       $(".chat_area").append("<div class='msg'><div class='inline'>"
@@ -166,6 +180,9 @@ $(document).ready(function(){
       $(".chat_area").animate({ scrollTop: scroll_pos }, "fast");
       if(name != Myname){
         notifyMe(oriMsg, name);
+        interval = setInterval(function(){
+          changeTitle(docTitle, blinkTitle)
+        }, 1000);
       }
     }
   })
@@ -209,4 +226,13 @@ function notifyMe(msg, name, img) {
 
     });
   }
+}
+
+// Doc title blink
+function changeTitle(docTitle, blinkTitle) {
+    if(document.title == docTitle){
+      document.title = blinkTitle;
+    }else{
+      document.title = docTitle;
+    }
 }
