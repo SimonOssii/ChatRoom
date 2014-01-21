@@ -17,7 +17,7 @@ How to use
 First:
 -------------
 
-    git clone https://github.com/SimonOssii/ChatRoom.git
+    git clone https://github.com/SimonSun1988/ChatRoom.git
 
 Install
 -----------
