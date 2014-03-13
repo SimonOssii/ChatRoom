@@ -4,7 +4,7 @@ $(document).ready(function(){
       blinkTitle = "You have message",
       interval = null,
       //~ socket = io.connect('http://localhost:3000'),
-      socket = io.connect('http://10.7.10.100:3000'), // My server ip
+      socket = io.connect('http://itsshowtime.idv.tw:3000'), // My server ip
       Myname = $("#wel_name").attr("data-name");
 
   document.title = docTitle;

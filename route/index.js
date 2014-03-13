@@ -7,7 +7,8 @@ module.exports.index = function(req, res){
       imgs = fs.readdirSync('./public/imgs/');
       
   if(!req.body.nickname){
-    res.redirect('/')
+    // res.redirect('/');  // for local
+    res.redirect('/simon');
   }
   var name = req.body.nickname;
   res.render('index.html', {"name": name, "imgs": imgs});
